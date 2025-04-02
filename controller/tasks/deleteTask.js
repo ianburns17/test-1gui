@@ -1,7 +1,7 @@
-import { Task } from '../../models/Task.js';
+import {deleteTask as Task } from '../../models/Task.js';
 
 export const deleteTask = (req, res) => {
     const taskId = parseInt(req.params.id);
-    Task.delete(taskId);
+    Task(taskId);
     res.redirect("/");
 }; 

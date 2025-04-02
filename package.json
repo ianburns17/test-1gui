@@ -1,12 +1,12 @@
 {
-  "name": "guestbook",
+  "name": "taskmanger",
   "version": "1.0.0",
   "description": "used to run",
   "main": "app.js",
   "type": "module",
   "scripts": {
     "test": "test",
-    "start": "nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "author": "ian burns",
   "license": "ISC",
@@ -19,4 +19,5 @@
     "express": "^4.21.2",
     "pg": "^8.14.1"
   }
+  
 }

@@ -13,6 +13,7 @@
     <form action="/add-task" method="POST">
         <input type="text" name="title" placeholder="Task Title" required>
         <input type="text" name="description" placeholder="Description">
+        <input type="number" name="priority" placeholder="Priority ">
         <button type="submit">Add Task</button>
     </form>
 
@@ -29,7 +30,7 @@
         <% tasks.forEach(task => { %>
             <li class="<%= task.completed ? 'completed' : '' %>">
                 <div>
-                    <strong><%= task.title %></strong> - <%= task.description %>
+                    <strong><%= task.title %></strong> - <%= task.description %> -<%= task.priority %>
                     
                 <form action="/toggle-task/<%= task.id %>" method="POST" style="display:inline;">
                     <button type="submit"><%= task.completed ? 'Undo' : 'Complete' %></button>
