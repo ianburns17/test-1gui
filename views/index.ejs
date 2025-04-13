@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
-    <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>Task Manager</h1>
+  <h1>Task Manager</h1>
 
-    <!-- Add Task Form -->
-    <form action="/add-task" method="POST">
-        <input type="text" name="title" placeholder="Task Title" required>
-        <input type="text" name="description" placeholder="Description">
-        <input type="number" name="priority" placeholder="Priority ">
-        <button type="submit">Add Task</button>
-    </form>
+    <% if (typeof error !== 'undefined' && error) { %>
+    <div class="error-message" style="color: red; background: #ffeeee; padding: 10px; margin: 10px 0; border-radius: 4px;">
+      <%= error %>
+    </div>
+  <% } %>
 
-    <!-- Search Bar -->
-    <form action="/" method="GET" style="display: flex; justify-content: center; margin-bottom: 20px;">
-        <input type="text" name="search" placeholder="Search tasks" value="<%= searchQuery %>" style="padding: 10px; font-size: 1rem; width: 100%; max-width: 400px;">
-        <button type="submit">Search</button>
-    </form>
+  <!-- Add Task Form -->
+  <form action="/add-task" method="POST">
+    <input type="text" name="title" placeholder="Task Title" required>
+    <input type="text" name="description" placeholder="Description" required>
+    
+    <select name="priority" required>
+      <option value="" disabled selected>Select Priority</option>
+      <option value="1">Highest</option>
+      <option value="2">Medium</option>
+      <option value="3">Low</option>
+    </select>
+    
+    <button type="submit">Add Task</button>
+  </form>
 
+  <!-- Search Bar -->
+  <form action="/" method="GET" style="display: flex; justify-content: center; margin-bottom: 20px;">
+    <input type="text" name="search" placeholder="Search tasks" value="<%= searchQuery %>" style="padding: 10px; font-size: 1rem; width: 100%; max-width: 400px;">
+    <button type="submit">Search</button>
+  </form>
 
-
-  
-    <ul>
-        <% tasks.forEach(task => { %>
-            <li class="<%= task.completed ? 'completed' : '' %>">
-                <div>
-                    <strong><%= task.title %></strong> - <%= task.description %> -<%= task.priority %>
-                    
+  <ul>
+    <% tasks.forEach(task => { %>
+        <li class="<%= task.completed ? 'completed' : '' %>">
+            <div>
+                <% let priorityLabel = task.priority == 1 ? "Highest" : (task.priority == 2 ? "Medium" : "Low"); %>
+                <strong><%= task.title %></strong> - <%= task.description %> - <%= priorityLabel %>
+                
                 <form action="/toggle-task/<%= task.id %>" method="POST" style="display:inline;">
                     <button type="submit"><%= task.completed ? 'Undo' : 'Complete' %></button>
                 </form>
                 <form action="/delete-task/<%= task.id %>" method="POST" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
-            </li>
-        <% }) %>
+            </div>
+        </li>
+    <% }) %>
 
-        <!-- Delete All Button -->
-        <form action="/delete-all" method="POST" style="display:inline;">
-            <button class="delete-all" type="submit">Delete ALL</button>
-        </form>
-    </ul>
+
+    <!-- Delete All Button as a list item -->
+    <li>
+      <form action="/delete-all" method="POST">
+        <button class="delete-all" type="submit">Delete ALL</button>
+      </form>
+    </li>
+  </ul>
 </body>
 </html>

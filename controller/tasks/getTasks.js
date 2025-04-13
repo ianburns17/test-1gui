@@ -8,7 +8,7 @@ export const getTasks = async (req, res) => {
         const tasks = await getAllTasks(search);
 
         // Render the tasks with the search query included in the view
-        res.render("index", { tasks, searchQuery: search });
+        res.render("index", { tasks, searchQuery: search, error: undefined });
     } catch (error) {
         console.error("Error fetching tasks:", error);
         res.status(500).send("An error occurred while fetching tasks");

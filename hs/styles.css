@@ -95,3 +95,20 @@ button.delete-all:hover {
     background-color: #c82333;
 }
 
+/* Error Message Styles */
+#error-messages {
+    color: #dc3545;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.error-field {
+    border: 1px solid #dc3545 !important;
+    background-color: #f8d7da;
+}
+

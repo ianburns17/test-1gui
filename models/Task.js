@@ -5,7 +5,7 @@ export const getAllTasks = async (search) => {
     if (search) {
         try {
             const result = await query(
-                "SELECT * FROM tasks WHERE LOWER(title) LIKE $1 OR LOWER(description) LIKE $1 ORDER BY priority DESC",
+                "SELECT * FROM tasks WHERE LOWER(title) LIKE $1 OR LOWER(description) LIKE $1 ORDER BY priority ASC",
                 [`%${search.toLowerCase()}%`]
             );
             return result.rows;
@@ -15,7 +15,7 @@ export const getAllTasks = async (search) => {
         }
     }else {
     try {
-        const result = await query("SELECT * FROM tasks ORDER BY priority DESC");
+        const result = await query("SELECT * FROM tasks ORDER BY priority ASC");
         return result.rows;
     } catch (error) {
         console.error("Error fetching tasks:", error);
