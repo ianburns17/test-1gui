@@ -1,7 +1,13 @@
-import {deleteTask as Task } from '../../models/Task.js';
+import { deleteTask as deleteTaskInDB } from '../../models/Task.js';
 
-export const deleteTask = (req, res) => {
+export const deleteTask = async (req, res) => {
     const taskId = parseInt(req.params.id);
-    Task(taskId);
-    res.redirect("/");
-}; 
+    
+    try {
+        await deleteTaskInDB(taskId);
+        res.redirect("/");
+    } catch (error) {
+        console.error("Error deleting task:", error);
+        res.status(500).send("An error occurred while deleting the task");
+    }
+};

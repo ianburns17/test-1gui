@@ -12,7 +12,7 @@ app.set("views", path.join(process.cwd(), "views"));
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("hs"));
+app.use(express.static(path.join(process.cwd(), "hs")));
 
 // Routes
 app.use('/', taskRoutes);
